@@ -1,5 +1,8 @@
 # foldspander
-Utility to fold and expand complex JSON objects
+
+Foldspander is a dependency-less JavaScript utility to fold and expand complex objects into simpler ones fit for serialization.
+
+Perfect for seamless object sharing between the client-side and the server-side!
 
 [travis-img]: https://travis-ci.org/tedeh/foldspander.png?branch=master
 
@@ -47,6 +50,8 @@ expandedObject.should.eql(object);
 
 If you don't need the extra functionality to serialize and expand classes and just want to fold the native objects that JSON lack support for, foldspander provides a simple convenience method that does not require instantiation.
 
+### Why not use replacer and revivers
+
 ## Tests 
 
 To run the [mocha.js](http://mochajs.org/) tests, go the the project folder and run:
@@ -55,6 +60,8 @@ To run the [mocha.js](http://mochajs.org/) tests, go the the project folder and 
 npm install --dev
 node_modules/.bin/mocha
 ```
+
+## Performance
 
 ## Contributing
 

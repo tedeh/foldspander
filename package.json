@@ -33,8 +33,5 @@
   "devDependencies": {
     "should": "5.2.0",
     "mocha": "2.2.1"
-  },
-  "dependencies": {
-    "lodash": "^3.5.0"
   }
 }
