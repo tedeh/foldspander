@@ -1,0 +1,37 @@
+{
+  "name": "foldspander",
+  "version": "1.0.0",
+  "description": "Utility to fold and expand complex JSON objects",
+  "keywords": [
+    "json",
+    "fold",
+    "expand",
+    "serialize",
+    "deserialize",
+    "marshalling",
+    "marshal",
+    "stringify",
+    "parse",
+    "replacer",
+    "reviver"
+  ],
+  "author": "Tedde Lundgren <mail@tedeh.net> (http://tedeh.net)",
+  "maintainers": "Tedde Lundgren <mail@tedeh.net> (http://tedeh.net)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tedeh/foldspander.git"
+  },
+  "homepage": "http://foldspander.tedeh.net",
+  "bugs": "https://github.com/tedeh/foldspander/issues",
+  "main": "index",
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "contributors": [
+    "Tedde Lundgren <mail@tedeh.net> (http://tedeh.net)"
+  ],
+  "devDependencies": {
+    "should": "5.2.0",
+    "mocha": "2.2.1"
+  }
+}
