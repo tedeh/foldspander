@@ -4,6 +4,7 @@ Foldspander is a dependency-less JavaScript utility to fold and expand complex o
 
 Perfect for seamless object sharing between the client-side and the server-side!
 
+[travis]: https://travis-ci.org/tedeh/foldspander
 [travis-img]: https://travis-ci.org/tedeh/foldspander.png?branch=master
 
 **Build status:** [![Build Status][travis-img]][travis] 
