@@ -62,6 +62,16 @@ describe('Foldspander', function() {
           global: true
         });
       });
+
+      it('should foldspand NaN', function() {
+        var nan = foldnexpand(NaN);
+        ((typeof nan === 'number') && isNaN(nan)).should.equal(true);
+      });
+
+      it('should foldspand Infinity and -Infinity', function() {
+        foldnexpand(Infinity).should.equal(Infinity);
+        foldnexpand(-Infinity).should.equal(-Infinity);
+      });
     
     });
   
