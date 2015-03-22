@@ -1,6 +1,6 @@
 # foldspander
 
-Foldspander is a dependency-less JavaScript utility to fold and expand complex objects into simpler ones fit for serialization.
+Foldspander is a JavaScript utility to fold and expand complex objects into simpler ones fit for serialization.
 
 Perfect for seamless object sharing between the client-side and the server-side!
 
