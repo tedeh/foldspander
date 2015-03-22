@@ -108,6 +108,15 @@ describe('Foldspander', function() {
     
     });
 
+    describe('fold', function() {
+
+      it('should ignore a non-registered type', function() {
+        var date = new Date();
+        foldspander.fold(date).should.eql(date);
+      });
+    
+    });
+
     describe('matcher "instanceof"', function() {
 
       beforeEach(function() {
@@ -234,14 +243,24 @@ describe('Foldspander', function() {
 
     describe('getReplacer and getReviver', function() {
 
+      var stringify = null;
+      var parse = null;
+
       beforeEach(function() {
         foldspander.native(true);
+        stringify = _.partial(JSON.stringify, _, foldspander.getReplacer());
+        parse = _.partial(JSON.parse, _, foldspander.getReviver());
       });
 
       it('should get correct replacer and reviver functions to stringify and parse a object', function() {
         var obj = {date: new Date(), regexp: /asdf/i, nest: {value: new Date(), arr: [1,2, new Date()]}};
-        var str = JSON.stringify(obj, foldspander.getReplacer());
-        var exp = JSON.parse(str, foldspander.getReviver());
+        var exp = parse(stringify(obj));
+        exp.should.eql(obj).and.not.equal(obj);
+      });
+
+      it('should revive and replace a complex array', function() {
+        var obj = [{a: 1}, {b: 2}, {c: new Date()}];
+        var exp = parse(stringify(obj));
         exp.should.eql(obj).and.not.equal(obj);
       });
     
