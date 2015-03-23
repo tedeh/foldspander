@@ -141,16 +141,13 @@ var Foldspander = require(__dirname + '/../');
 var should = require('should');
 
 // a model class (loosely based on Backbone.Model)
-function Model() {
-  this.attributes = {};
-  for(var key in arguments) {
-    this.attributes[key] = arguments[key];
-  }
+function Model(attrs) {
+  this.attributes = attrs || {};
 }
 
 // a collection of models class (loosely based on Backbone.Collection)
 function Collection(models) {
-  this.models = models;
+  this.models = models || [];
 }
 
 var foldspander = new Foldspander({
@@ -163,8 +160,8 @@ foldspander.add('collection', Foldspander.matchers.instanceof(Collection),
 );
 
 foldspander.add('model', Foldspander.matchers.instanceof(Model),
-  function(model) { return model.toJSON(); },
-  function(obj) { return new Model(obj); }
+  function(model) { return {attributes: model.attributes}; },
+  function(obj) { return new Model(obj.attributes); }
 );
 
 var collection = new Collection([
@@ -179,8 +176,12 @@ var exp = foldspander.expand(fld);
 exp.should.eql(collection).and.not.equal(collection);
 
 // verbose example to show that models are actually created
-exp.models[0].should.be.eql(collection.models[0]).and.not.equal(collection.models[0])
+exp.models[0].should.be.eql(collection.models[0]).and.not.equal(collection.models[0]);
 ```
+
+[backbone]: http://backbonejs.org/
+
+A similar setup might be used when folding and expanding [Backbone][backbone] objects.
 
 ## Tests 
 
