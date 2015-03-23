@@ -17,7 +17,7 @@ Perfect for seamless object sharing between the client-side and the server-side!
   - [Replacer and revivers](#replacer-and-revivers)
   - [Helpers and custom objects](#helpers-and-custom-objects)
     - [addClass](#addclass)
-  - [Nested objects] (#nested-objects)
+  - [Nested objects](#nested-objects)
 - [Tests](#tests)
 - [TODO](#todo)
 - [Performance](#performance)
