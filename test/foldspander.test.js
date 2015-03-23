@@ -53,13 +53,6 @@ describe('Foldspander', function() {
       foldnexpand(obj).should.eql(obj).and.not.equal(obj);
     });
 
-    it('should throw a TypeError when adding an already existing matcher', function() {
-      foldspander.add('custom_property', function() {}, function() {}, function() {});
-      (function() {
-        foldspander.add('custom_property');
-      }).should.throw(TypeError);
-    });
-
     describe('native', function() {
 
       beforeEach(function() {
@@ -222,6 +215,24 @@ describe('Foldspander', function() {
       it('should fold and expand native options immediately', function() {
         var obj = {a: new Date(), r: /adsf/i};
         foldnexpand(obj).should.eql(obj).and.not.equal(obj);
+      });
+
+      describe('native function', function() {
+
+        it('should toggle with the "native" function', function() {
+          var date = new Date();
+          foldspander.native(false);
+          foldspander.fold(date).should.be.instanceof(Date);
+          foldspander.native(true);
+          foldspander.fold(date).should.have.property('timestamp', date.valueOf());
+        });
+
+        it('should limit native functions to an array if given one', function() {
+          var obj = {d: new Date(), r: /asdf/i};
+          foldspander.native(['Date']);
+          foldspander.fold(obj).should.containDeep({d: {timestamp: obj.d.valueOf()}, r: obj.r});
+        });
+      
       });
     
     });
