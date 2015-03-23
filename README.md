@@ -1,6 +1,6 @@
 # foldspander
 
-Foldspander is a JavaScript utility to fold and expand complex objects into simpler ones fit for serialization.
+Foldspander is a JavaScript utility to fold complex objects into simpler ones fit for serialization, and then expand them back into their originals.
 
 Perfect for seamless object sharing between the client-side and the server-side!
 
@@ -15,7 +15,8 @@ Perfect for seamless object sharing between the client-side and the server-side!
 - [Usage](#usage)
   - [Native objects](#native-objects)
   - [Replacer and revivers](#replacer-and-revivers)
-  - [Custom objects](#custom-objects)
+  - [Helpers and custom objects](#helpers-and-custom-objects)
+    - [addClass](#addclass)
   - [Nested objects] (#nested-objects)
 - [Tests](#tests)
 - [TODO](#todo)
@@ -89,16 +90,18 @@ exp[1].created_at.should.be.instanceof(Date);
 
 Foldspander provides support for dealing with some native Javascript objects. A Foldspander instance can be prepared to accept these types by passing the option `native` to the constuctor, or using the instance method `native`.
 
-The objects that are currently supported are:
+The currently supported objects are:
 
 - `Date`
 - `RegExp`
 - `NaN`
 - `Infinity`
 
+With more to come!
+
 ### Replacer and Revivers
 
-`JSON.stringify` and `JSON.parse` take optional arguments named `replacer` and `reviver` respectively. An instance of Foldspander provides hooks for these arguments that will apply the rules of the instance when used. Example in `examples/revive_and_replace.js`:
+`JSON.stringify` and `JSON.parse` take optional arguments named `replacer` and `reviver` respectively. An instance of Foldspander provides hooks for these arguments that will apply the rules of the instance. Example in `examples/revive_and_replace.js`:
 
 ```javascript
 var Foldspander = require(__dirname + '/../');
@@ -128,9 +131,47 @@ var exp = foldspander.parse(str);
 exp.should.eql(obj);
 ```
 
-### Custom objects
+### Helpers and custom objects
 
-It is simple to add your own custom objects.
+It is simple to add your own custom objects. See `examples/showcase.js` or look into the [Usage](#usage) section of this document.
+
+In addition to the basic `add` method on a Foldspander instance, some helpers are provided.
+
+#### addClass
+
+`addClass` is a simple helper for basic types. It requires only a (named!) function (dubbed "class") as its first argument to work. It will add an object to a foldspander instance with the following properties:
+
+- `name` - Name of the class
+- `matcher` - Matches if an object is an instanceof the class
+- `fold` - Picks every enumerable property of the object
+- `expand` - Makes an instance of class and then copies every folded property into the instance
+
+It works good for simple classes. Example in `examples/add_class.js`:
+
+```javascript
+var Foldspander = require(__dirname + '/../');
+var should = require('should');
+
+function Fraction(numerator, denominator) {
+  this.numerator = numerator;
+  this.denominator = denominator;
+};
+
+var foldspander = new Foldspander();
+
+foldspander.addClass(Fraction);
+
+var obj = new Fraction(1,3);
+
+// 1) Every enumerable property was picked of obj
+var fld = foldspander.fold(obj);
+
+// 2) Fraction was instantiated with no arguments to the constructor
+// 3) Every property picked in 1) was copied into instance from 2)
+var exp = foldspander.expand(fld);
+
+exp.should.eql(obj).and.not.equal(obj);
+```
 
 ### Nested objects
 

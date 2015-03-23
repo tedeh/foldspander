@@ -7,10 +7,20 @@ var folders = Foldspander.folders;
 var expanders = Foldspander.expanders;
 
 // Generic Test Class
-var Fraction = function(a, b) {
+function Fraction(a, b) {
   this.numerator = a;
   this.denominator = b;
 };
+
+// Generic Model Class
+function Model(attrs) {
+  this.attributes = attrs || {};
+}
+
+// Generic nested Class (Collection of Models)
+function Collection() {
+  this.models = _.flatten(arguments);
+}
 
 describe('Foldspander', function() {
 
@@ -279,14 +289,6 @@ describe('Foldspander', function() {
 
     describe('nested objects', function() {
 
-      function Model(attrs) {
-        this.attributes = attrs || {};
-      }
-
-      function Collection() {
-        this.models = _.flatten(arguments);
-      }
-
       beforeEach(function() {
         foldspander.native(true);
         foldspander.add('model', matchers.instanceof(Model),
@@ -315,6 +317,24 @@ describe('Foldspander', function() {
         exp.models[0].should.not.be.equal(org.models[0]); // has descended correctly
         exp.models[1].attributes.created_at.should.not.be.equal(org.models[1].attributes.created_at);
         exp.should.eql(org).and.not.equal(org); // is the same object
+      });
+    
+    });
+
+    describe('helper addClass', function() {
+
+      beforeEach(function() {
+        foldspander.addClass(Fraction);
+      });
+
+      it('should throw an error if a class has no name', function() {
+        var f = function(a, b) { this.a = a; this.b = b; };
+        (function() { foldspander.addClass(f); }).should.throw();
+      });
+
+      it('should match and fold and expand an instance', function() {
+        var obj = new Fraction(5, 9);
+        foldnexpand(obj).should.eql(obj).and.not.equal(obj);
       });
     
     });
