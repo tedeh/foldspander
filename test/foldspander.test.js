@@ -276,6 +276,48 @@ describe('Foldspander', function() {
       });
     
     });
+
+    describe('nested objects', function() {
+
+      function Model(attrs) {
+        this.attributes = attrs || {};
+      }
+
+      function Collection() {
+        this.models = _.flatten(arguments);
+      }
+
+      beforeEach(function() {
+        foldspander.native(true);
+        foldspander.add('model', matchers.instanceof(Model),
+          function(model) { return {attributes: model.attributes}; },
+          function(obj) { return new Model(obj.attributes); }
+        );
+        foldspander.add('collection', matchers.instanceof(Collection),
+          function(collection) { return {models: collection.models}; },
+          function(obj) { return new Collection(obj.models); }
+        );
+      });
+
+      it('should descend into a nested object', function() {
+
+        var org = new Collection([
+          new Model({id: 1, created_at: new Date()}),
+          new Model({id: 2, created_at: new Date()})
+        ]);
+
+        var fold = foldspander.fold(org);
+        fold.models[0].should.not.be.instanceof(Model); // has descended correctly
+        fold.models[0].attributes.created_at.should.not.be.instanceof(Date);
+
+        var exp = foldspander.expand(fold);
+
+        exp.models[0].should.not.be.equal(org.models[0]); // has descended correctly
+        exp.models[1].attributes.created_at.should.not.be.equal(org.models[1].attributes.created_at);
+        exp.should.eql(org).and.not.equal(org); // is the same object
+      });
+    
+    });
   
   });
 
