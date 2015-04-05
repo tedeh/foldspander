@@ -31,7 +31,7 @@ Install the lastest version of `foldspander` from [npm](https://www.npmjs.com/) 
 
 Usage is simple and consists of creating an instance of foldspander and assigning different types to it.
 
-Basic example showcasing many of the features in `examples/showcase.js`:
+Basic example showcasing many of the features in [examples/showcase.js](examples/showcase.js):
 
 ```javascript
 var Foldspander = require(__dirname + '/../');
@@ -101,7 +101,7 @@ With more to come!
 
 ### Replacer and Revivers
 
-`JSON.stringify` and `JSON.parse` take optional arguments named `replacer` and `reviver` respectively. An instance of Foldspander provides hooks for these arguments that will apply the rules of the instance. Example in `examples/revive_and_replace.js`:
+`JSON.stringify` and `JSON.parse` take optional arguments named `replacer` and `reviver` respectively. An instance of Foldspander provides hooks for these arguments that will apply the rules of the instance. Example in [examples/revive_and_replace.js](examples/revive_and_replace.js):
 
 ```javascript
 var Foldspander = require(__dirname + '/../');
@@ -116,7 +116,7 @@ var exp = JSON.parse(str, foldspander.getReviver());
 exp.should.eql(obj);
 ```
 
-As a convenience, a Foldspander instance also provides a wrapper around `JSON.stringify` and `JSON.parse`. Example in `examples/stringify_and_parse.js`:
+As a convenience, a Foldspander instance also provides a wrapper around `JSON.stringify` and `JSON.parse`. Example in [examples/stringify_and_parse.js](examples/stringify_and_parse.js):
 
 ```javascript
 var Foldspander = require(__dirname + '/../');
@@ -133,7 +133,7 @@ exp.should.eql(obj);
 
 ### Helpers and custom objects
 
-It is simple to add your own custom objects. See `examples/showcase.js` or look into the [Usage](#usage) section of this document.
+It is simple to add your own custom objects. See [examples/showcase.js](examples/showcase.js)or look into the [Usage](#usage) section of this document.
 
 In addition to the basic `add` method on a Foldspander instance, some helpers are provided.
 
@@ -146,7 +146,7 @@ In addition to the basic `add` method on a Foldspander instance, some helpers ar
 - `fold` - Picks every enumerable property of the object
 - `expand` - Makes an instance of class and then copies every folded property into the instance
 
-It works good for simple classes. Example in `examples/add_class.js`:
+It works good for simple classes. Example in [examples/add_class.js](examples/add_class.js):
 
 ```javascript
 var Foldspander = require(__dirname + '/../');
@@ -175,7 +175,7 @@ exp.should.eql(obj).and.not.equal(obj);
 
 ### Nested objects
 
-Nested objects may be serialized as well. The object walker will descend again into a folded object. Example involving a Collection of Model objects in `examples/nested_objects.js`:
+Nested objects may be serialized as well. The object walker will descend again into a folded object. Example involving a Collection of Model objects in [examples/nested_objects.js](examples/nested_objects.js):
 
 ```javascript
 var Foldspander = require(__dirname + '/../');
@@ -236,9 +236,8 @@ node_modules/.bin/mocha
 ## TODO
 
 - Support more native types like WeakMap etc.
-- Simpler functions for adding types that are instances of
 - Client versions
-- Callbacked expansion/folding
+- Async expansion/folding
 
 ## Performance
 
