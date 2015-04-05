@@ -1,10 +1,15 @@
 var _ = require('lodash');
-var mocha = require('mocha');
 var should = require('should');
-var Foldspander = require(__dirname + '/../');
 var matchers = Foldspander.matchers;
 var folders = Foldspander.folders;
 var expanders = Foldspander.expanders;
+var Foldspander = require(__dirname + '/..');
+
+// mainly for browser test
+try {
+} catch(err) {
+  Foldspander = require('lib/index');
+}
 
 // Generic Test Class
 function Fraction(a, b) {

@@ -12,8 +12,10 @@ var browserify = require('browserify');
 gulp.task('compile', function() {
 
   var browser = browserify({
-    entries: ['.']
+    entries: [__dirname]
   });
+
+  browser.exclude('lodash');
 
   return browser.bundle()
     .pipe(source('foldspander.js'))
