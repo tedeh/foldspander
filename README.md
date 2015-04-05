@@ -238,6 +238,7 @@ node_modules/.bin/mocha
 - Support more native types like WeakMap etc.
 - Simpler functions for adding types that are instances of
 - Client versions
+- Callbacked expansion/folding
 
 ## Performance
 
